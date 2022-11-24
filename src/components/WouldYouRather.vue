@@ -3,28 +3,32 @@
 
     <h2> Please make your choice! </h2>
     
-    <h3>{{question}}</h3>
+    <h3 v-bind:value="question"> {{ question }} </h3>
 
     <input type="radio" v-model="choice" v-bind:value="answer1" v-on:change="choiceMade"> 
     <label>{{answer1}}</label>
+
     <input type="radio" v-model="choice" v-bind:value="answer2" v-on:change="choiceMade" > 
     <label>{{answer2}}</label>
   
     
-    
-    
+  </div>
+
+  <div>
+    <h4> {{question2}}</h4>
   </div>
 </template>
 
 <script>
-import { stringLiteral } from '@babel/types';
-
 export default {
   name: 'WouldYouRather',
   props: {
+    id: Number,
     question: String,
     answer1: String,
     answer2: String,
+
+    
   },
   data () {
     return {
@@ -33,7 +37,8 @@ export default {
   },
   methods: {
     choiceMade() {
-      this.$emit('answer-cha', this.choice)
+      // emit an event called ' ansewer-changed ' adn include the value of the data choice 
+      this.$emit('answer-changed', this.id, this.choice)
     }
   }
 }
